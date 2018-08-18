@@ -1,11 +1,11 @@
 version: 2
 jobs:
   build:
-    machine: true
     docker:
       - image: tigefa/bionic-desktop
     steps:
       - checkout
+      - setup_remote_docker
       - run:
           name: Install and Update Packages
           command: |
