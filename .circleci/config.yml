@@ -11,24 +11,18 @@ jobs:
       - run:
           name: Install Docker client
           command: |
-            set -x
-            VER="18.06.0-ce"
-            curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
-            tar -xf -C /tmp -f /tmp/docker-$VER.tgz
-            mv /tmp/docker/* /usr/bin
+            wget -qO- https://get.docker.com/ | sh
            
       - run:
           name: Install and Update Packages
           command: |
-            echo 'Asia/Jakarta' > /etc/timezone
-            export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true
-            apt update
+            apt update -yqq
             apt upgrade -yqq
             apt install -yqq sudo curl wget netcat whois figlet apt-utils software-properties-common
             sudo add-apt-repository ppa:certbot/certbot -y
             sudo apt-get update
             sudo apt-get dist-upgrade -yqq
-            sudo apt-get install -y python-certbot-apache
+            sudo apt-get install -yqq python-certbot-apache
             
       - run:
           name: Print the Current Time
